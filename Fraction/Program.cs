@@ -28,15 +28,20 @@ namespace Fraction
             fraction3.ToInverted();
             fraction3.Print();
             Fraction fraction4=new Fraction();
-            Fraction fraction5 = new Fraction(2,6);
+            Fraction fraction5 = new Fraction(2,8);
             Fraction fraction6 = new Fraction(3,6);
             //fraction4 = fraction5 + fraction6;
             //fraction4.Print();
-           
+            Fraction fraction7 = new Fraction();
+            fraction7 = fraction5 + fraction6;
+            fraction7.Print();
+            
+            Console.WriteLine(fraction5 < fraction6);
+
             //fraction3 = fraction / fraction2;
             // fraction3.Print();
-            
-//#error version
+
+            //#error version
         }
     }
 }

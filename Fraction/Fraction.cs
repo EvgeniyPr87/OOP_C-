@@ -9,53 +9,44 @@ namespace Fraction
 {
     internal class Fraction
     {
-        private int numerator;
+        public int IntegerPart { get; set; }
+        public int Numerator { get; set; }
         private int denominator;
-        private int integerPart;
-
-        public int Numerator
-        {
-            get { return numerator; }
-            set { numerator = value; }
-        }
         public int Denominator
         {
-            get { return denominator; }
-            set { denominator = value; }
-        }
-        public int IntegerPart
-        {
-            get { return integerPart; }
-            set { integerPart = value; }
+            get => denominator;
+            set => denominator = value == 0 ? 1 : value;
         }
 
         //          Constructors:
+
+        //Defolt constructor:
         public Fraction()
         {
-            this.IntegerPart = 0;
-            this.Numerator = 0;
-            this.Denominator = 1;
+            Denominator = 1;
         }
-        public Fraction(int integer, int numerator, int denominator)
-        {
-            this.Numerator = numerator;
-            this.Denominator = denominator;
-            this.IntegerPart = integer;
 
-        }
-        public Fraction(int numerator, int denominator)
+        //Constructor with one parameter:
+        public Fraction(int IntegerPart)
         {
-            this.IntegerPart = 0;
-            this.Numerator = numerator;
-            this.Denominator = denominator;
-        }
-        public Fraction(int integerPart)
-        {
-            this.IntegerPart = integerPart;
-            this.Numerator = 0;
+            this.IntegerPart = IntegerPart;
             this.Denominator = 1;
         }
 
+        //Constructor with two parameter:
+        public Fraction(int Numerator, int Denominator)
+        {
+            this.Numerator = Numerator;
+            this.Denominator = Denominator;
+        }
+        //Constructor with three parameter:
+        public Fraction(int IntegerPart, int Numerator, int Denominator)
+        {
+            this.IntegerPart = IntegerPart;
+            this.Numerator = Numerator;
+            this.Denominator = Denominator;
+        }
+        ////CopyConstructor:
         public Fraction(Fraction other)
         {
             this.IntegerPart = other.IntegerPart;
@@ -72,135 +63,55 @@ namespace Fraction
             else if (IntegerPart == 0) { Console.WriteLine($"Дробь: {Numerator} / {Denominator} "); }
         }
 
-        public Fraction WrongFraction()
-        {
-            if (IntegerPart != 0)
-            {
-                Numerator += IntegerPart * Denominator;
-                IntegerPart = 0;
-            }
-            
-            return this;
-        }
+        public Fraction WrongFraction() => new Fraction(Numerator + IntegerPart * Denominator, Denominator);
 
-        public Fraction ConvertingCorrect()
-        {
-            IntegerPart += Numerator / Denominator;
-            Numerator %= Denominator;
+        public Fraction ConvertingCorrect() => new Fraction(Numerator / Denominator, Numerator %= Denominator, Denominator);
 
-            return this;
-        }
+        public Fraction Reduction() => new Fraction(IntegerPart, Numerator / GCD(), Denominator / GCD());
 
-        public Fraction Reduction()
-        {
-            int more, less, rest;
-            if (Numerator < Denominator)
-            {
-                more = Numerator;
-                less = Denominator;
-            }
-            else
-            {
-                more = Denominator;
-                less = Numerator;
-            }
-            do
-            {
-                rest = more % less;
-                more = less;
-                less = rest;
-            } while (rest != 0);
-            int GCD = more;
-            Numerator /= GCD;
-            Denominator /= GCD; ;
-            return this;
-        }
+        public int GCD() =>
+            (int)Convert.ToInt32(System.Numerics.BigInteger.GreatestCommonDivisor(Numerator, Denominator).ToString());
 
-        public Fraction ToInverted()
-        {
-            Fraction inverted = this;
-            inverted.WrongFraction();
-            (inverted.Numerator, inverted.Denominator) = (inverted.Denominator, inverted.Numerator);
-            return inverted;
-        }
+        public Fraction ToInverted() => new Fraction(Denominator, WrongFraction().Numerator);
 
         //      Operators:
 
-
-        public static Fraction operator *(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return new Fraction
+        public static Fraction operator *(Fraction left, Fraction right) =>
+            new Fraction
                 (
-                left.Numerator * right.Numerator,
-                left.Denominator * right.Denominator
+                left.WrongFraction().Numerator * right.WrongFraction().Numerator,
+                 left.Denominator * right.Denominator
                 );
-        }
 
-        public static Fraction operator /(Fraction left, Fraction right)
-        {
-            return left * right.ToInverted();
-        }
+        public static Fraction operator /(Fraction left, Fraction right) => left * right.ToInverted();
 
-        public static Fraction operator +(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-             Fraction result= new Fraction
-                (
-                (left.Numerator * right.Denominator) + (right.Numerator * left.Denominator),
-                left.Denominator * right.Denominator
-                ).ConvertingCorrect().Reduction();
-            return result;
-        }
+        public static Fraction operator +(Fraction left, Fraction right) =>
+           new Fraction
+               (
+               (left.WrongFraction().Numerator * right.Denominator) + (right.WrongFraction().Numerator * left.Denominator),
+               left.Denominator * right.Denominator
+               ).ConvertingCorrect().Reduction();
 
-        public static Fraction operator -(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return new Fraction
+        public static Fraction operator -(Fraction left, Fraction right) =>
+       new Fraction
                 (
                 (left.Numerator * right.Denominator) - (right.Numerator * left.Denominator),
                 left.Denominator * right.Denominator
                 ).ConvertingCorrect().Reduction();
-        }
 
-        public static bool operator ==(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return left.Equals(right);
-        }
+        public static bool operator ==(Fraction left, Fraction right) => left.WrongFraction().Equals(right.WrongFraction());
 
+        public static bool operator !=(Fraction left, Fraction right) => !left.WrongFraction().Equals(right.WrongFraction());
 
-        public static bool operator !=(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return !left.Equals(right);
-        }
+        public static bool operator >(Fraction left, Fraction right) =>
+            left.WrongFraction().Numerator * right.Denominator > right.WrongFraction().Numerator * left.Denominator;
 
-        public static bool operator >(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return left.Numerator * right.Denominator > right.Numerator * left.Denominator;
-        }
-        public static bool operator <(Fraction left, Fraction right)
-        {
-            left.WrongFraction();
-            right.WrongFraction();
-            return left.Numerator * right.Denominator < right.Numerator * left.Denominator;
-        }
-        public static bool operator >=(Fraction left, Fraction right)
-        {
-            return !(left < right);
-        }
-        public static bool operator <=(Fraction left, Fraction right)
-        {
-            return !(left > right);
-        }
+        public static bool operator <(Fraction left, Fraction right) => !(left > right);
+        
+        public static bool operator >=(Fraction left, Fraction right)=> !(left < right);
+        
+        public static bool operator <=(Fraction left, Fraction right)=> !(left > right);
+       
     }
 }
 
