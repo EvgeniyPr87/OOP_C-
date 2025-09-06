@@ -79,10 +79,7 @@ namespace Fraction
                 Numerator += IntegerPart * Denominator;
                 IntegerPart = 0;
             }
-            //else if (IntegerPart == 0)
-            //{
-            //    Numerator += Numerator * Denominator;
-            //}
+            
             return this;
         }
 
