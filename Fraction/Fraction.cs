@@ -166,26 +166,6 @@ namespace Fraction
                 ).ConvertingCorrect().Reduction();
         }
 
-        public static Fraction operator +=(Fraction left, Fraction right)
-        {
-          
-            return  left + right;
-        }
-
-        public static Fraction operator -=(Fraction left, Fraction right)
-        {
-            return left - right;
-        }
-
-        public static Fraction operator *=(Fraction left, Fraction right)
-        {
-            return left * right;
-        }
-
-        public static Fraction operator /=(Fraction left, Fraction right)
-        {
-            left / right;
-        }
         public static bool operator ==(Fraction left, Fraction right)
         {
             left.WrongFraction();

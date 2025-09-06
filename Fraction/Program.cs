@@ -32,9 +32,11 @@ namespace Fraction
             Fraction fraction6 = new Fraction(3,6);
             //fraction4 = fraction5 + fraction6;
             //fraction4.Print();
-
+           
             //fraction3 = fraction / fraction2;
-           // fraction3.Print();
+            // fraction3.Print();
+            
+//#error version
         }
     }
 }
