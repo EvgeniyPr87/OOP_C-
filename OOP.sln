@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP", "OOP\OOP.csproj", "{7DE7AAD2-7444-4073-8DD9-29DEC49D5C0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fraction", "Fraction\Fraction.csproj", "{299BC9D2-2373-4BE8-A28A-598964A4106C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DE7AAD2-7444-4073-8DD9-29DEC49D5C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE7AAD2-7444-4073-8DD9-29DEC49D5C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE7AAD2-7444-4073-8DD9-29DEC49D5C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE7AAD2-7444-4073-8DD9-29DEC49D5C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{299BC9D2-2373-4BE8-A28A-598964A4106C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{299BC9D2-2373-4BE8-A28A-598964A4106C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{299BC9D2-2373-4BE8-A28A-598964A4106C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{299BC9D2-2373-4BE8-A28A-598964A4106C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
